@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>WEBGL TUTORIAL - HOW IT WORKS (KAREL RENALDI - 13519180)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas></canvas>
+
+    <div class="uiContainer">
+      <div class="ui">
+        <div class="x"></div>
+        <div class="y"></div>
+        <div class="angle"></div>
+        <div class="scaleX"></div>
+        <div class="scaleY"></div>
+      </div>
+    </div>
+
+    <script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+    <script src="https://webglfundamentals.org/webgl/resources/webgl-lessons-ui.js"></script>
+    <script src="https://webglfundamentals.org/webgl/resources/m3.js"></script>
+    <script id="vertex-shader-2d" type="x-shader/x-vertex">
+      attribute vec2 a_position;
+      attribute vec4 a_color;
+
+      uniform mat3 u_matrix;
+
+      varying vec4 v_color;
+
+      void main() {
+        // Multiply the position by the matrix.
+        gl_Position = vec4((u_matrix * vec3(a_position, 1)).xy, 0, 1);
+
+        // Copy the color from the attribute to the varying.
+        v_color = a_color;
+      }
+    </script>
+    <script id="fragment-shader-2d" type="x-shader/x-fragment">
+      precision mediump float;
+
+      varying vec4 v_color;
+
+      void main() {
+        gl_FragColor = v_color;
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
